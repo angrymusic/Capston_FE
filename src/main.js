@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import { KeyController } from './KeyController';
+
 import house from "../models/house.obj";
 
 function main() {
@@ -32,7 +35,37 @@ function main() {
     camera.position.x = 100;
     camera.lookAt(50, 0, 0);
     scene.add(camera);
+    
+    // Controls
+	const controls = new PointerLockControls(camera, renderer.domElement);
+	
+	controls.domElement.addEventListener('click', () => {
+		controls.lock();
+	});
+	controls.addEventListener('lock', () => {
+		console.log('lock!');
+	});
+	controls.addEventListener('unlock', () => {
+		console.log('unlock!');
+	});
 
+	// 키보드 컨트롤
+	const keyController = new KeyController();
+
+	function walk() {
+		if (keyController.keys['KeyW'] || keyController.keys['ArrowUp']) {
+			controls.moveForward(2);
+		}
+		if (keyController.keys['KeyS'] || keyController.keys['ArrowDown']) {
+			controls.moveForward(-2);
+		}
+		if (keyController.keys['KeyA'] || keyController.keys['ArrowLeft']) {
+			controls.moveRight(-2);
+		}
+		if (keyController.keys['KeyD'] || keyController.keys['ArrowRight']) {
+			controls.moveRight(2);
+		}
+	}
     //light
     const light = new THREE.HemisphereLight(0xffffff, 0x000000, 1); //빛의 색, 빛의 강도
     light.position.z = 0.5;
@@ -46,6 +79,7 @@ function main() {
 
     // 화면에 그리기
     function draw() {
+        walk();
         renderer.render(scene, camera);
         renderer.setAnimationLoop(draw);
     }
