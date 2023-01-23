@@ -58,6 +58,13 @@ module.exports = {
                     name: "[name].[ext]",
                 },
             },
+            {
+                test: /\.svg$/,
+                loader: "file-loader",
+                options: {
+                    name: "[name].[ext]",
+                },
+            },
         ],
     },
     plugins: [

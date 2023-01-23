@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./main.css">
-</head>
-<body>
-    <canvas id="three-canvas"></canvas>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>삼전만큼사랑해</title>
+        <link rel="stylesheet" href="./main.css" />
+    </head>
+    <body>
+        <div id="menu-button"><img id="menu-image" src="menubar.svg" alt=menu" width="100" height="100"/></div>
+        <div id="signup-page">
+            <div class="text">회원 가입</div><br />
+            <input class="input-box" type="text" placeholder="ID" /><br />
+            <input class="input-box" type="password" placeholder="PW" /><br />
+            <button class="check-signup-button">SIGN UP</button>
+        </div>
+        <div id="blur-page">
+            <div id="login-box">
+                <input class="input-box" type="text" placeholder="ID" /><br />
+                <input class="input-box" type="password" placeholder="PW" /><br />
+                <button class="login-button">LOGIN</button>
+                <button id="signup-button">SIGN UP</button>
+            </div>
+        </div>
+        <canvas id="three-canvas"></canvas>
+    </body>
 </html>
