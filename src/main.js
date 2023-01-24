@@ -6,7 +6,7 @@ import axios from "axios";
 import house from "../models/house.obj";
 import "../images/menubar.svg";
 
-const address = "";
+const address = "http://localhost:8000/";
 function main() {
     const canvas = document.querySelector("#three-canvas");
 
@@ -92,7 +92,7 @@ function main() {
     //회원가입
     checkSignupButton.addEventListener("click", () => {
         axios
-            .post(address, {
+            .post(address + "/signup", {
                 signupId: `${signupId}`,
                 signupPw: `${signupPw}`,
             })
@@ -103,7 +103,8 @@ function main() {
                     signupPage.style.display = "none";
                     loginPage.style.display = "flex";
                 }
-            }).catch((err)=>{
+            })
+            .catch((err) => {
                 console.log("axios signup ERROR");
             });
     });
@@ -114,9 +115,9 @@ function main() {
         window.location.reload();
         //////////////////////////////////////////
         axios
-            .post(address, {
-                id: `${loginId.value}`,
-                pw: `${loginPw.value}`,
+            .post(address + "/login", {
+                loginId: `${loginId.value}`,
+                loginPw: `${loginPw.value}`,
             })
             .then((res) => {
                 if (res.data.result == false) {
@@ -130,10 +131,13 @@ function main() {
 
                         for (let i = 0; i < objs.length; i++) {
                             const li = document.createElement("li");
+                            const text = document.createTextNode(objs.value);
+
                             li.setAttribute("class", "list");
+                            li.appendChild(text);
                             li.onclick((e) => {
                                 axios
-                                    .post(address, {
+                                    .post(address + "/list", {
                                         objName: `${e.target.innerText}`,
                                     })
                                     .then((res) => {
@@ -144,6 +148,7 @@ function main() {
                                         console.log("axios list ERROR");
                                     });
                             });
+                            objList.appendChild(li);
                         }
                     });
                     loginPage.style.display = "none";
