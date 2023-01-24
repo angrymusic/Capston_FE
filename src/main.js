@@ -5,7 +5,6 @@ import { KeyController } from "./KeyController";
 import axios from "axios";
 import house from "../models/house.obj";
 import "../images/menubar.svg";
-import { AudioLoader } from "three";
 
 const address = "";
 function main() {

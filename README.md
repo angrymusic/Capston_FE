@@ -17,4 +17,5 @@
 -   Webpack : 번들링 하기 위해 사용
 -   three.js : 효율적으로 브라우저에서 3D object를 출력하기 위해 사용
 -   babel : 브라우저 js버전 최적화를 위해 사용
--   file-loader : obj file load를 위해 
+-   file-loader : obj file load를 위해
+-   axios : 서버와 get, post 통신을 위해
