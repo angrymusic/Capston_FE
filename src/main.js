@@ -2,38 +2,71 @@ import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import { KeyController } from "./KeyController";
-
+import axios from "axios";
 import house from "../models/house.obj";
 import "../images/menubar.svg";
+import { AudioLoader } from "three";
 
+const address = "";
 function main() {
     const canvas = document.querySelector("#three-canvas");
 
     const menuButton = document.querySelector("#menu-button");
     const signupButton = document.querySelector("#signup-button");
-    const checksignupButton = document.querySelector('#check-sginup-button');
+    const checkSignupButton = document.querySelector("#check-signup-button");
+    const cancelSignupButton = document.querySelector("#cancel-signup-button");
+    const loginButton = document.querySelector("#login-button");
+    const logoutButton = document.querySelector("#logout-button");
 
-    const blurPage = document.querySelector("#blur-page");
+    const loginPage = document.querySelector("#login-page");
     const signupPage = document.querySelector("#signup-page");
+    const listPage = document.querySelector("#list-page");
 
-    const inputboxs = document.querySelectorAll('.input-box');
+    const loginId = document.querySelector("#login-id");
+    const loginPw = document.querySelector("#login-pw");
+    const signupId = document.querySelector("#signup-id");
+    const signupPw = document.querySelector("#signup-pw");
+
+    const inputboxs = document.querySelectorAll(".input-box");
+    const listItem = document.querySelectorAll(".list");
+    const objList = document.querySelector("#obj-list");
+
+    let login;
+    if (localStorage.getItem("login") == "true") {
+        login = true;
+    } else {
+        login = false;
+    }
 
     let menuToggle = true;
-    let login = false;
     let signupToggle = false;
+
+    //로그인 확인
+    window.onload = () => {
+        if (login == true) {
+            menuToggle = false;
+            loginPage.style.display = "none";
+        }
+    };
+
     //menu 버튼 control
     menuButton.addEventListener("click", () => {
-        if (menuToggle == true) {
-            blurPage.style.display = "none";
+        if (menuToggle == true && login == true) {
+            loginPage.style.display = "none";
             signupPage.style.display = "none";
+            listPage.style.display = "none";
             menuToggle = false;
             signupToggle = false;
-            for(let i= 0;i<inputboxs.length;i++){
-                inputboxs[i].value='';
+            for (let i = 0; i < inputboxs.length; i++) {
+                inputboxs[i].value = "";
             }
-            onfocus="this.value=''"
+            onfocus = "this.value=''";
         } else {
-            blurPage.style.display = "flex";
+            if (login == true) {
+                listPage.style.display = "flex";
+            } else {
+                loginPage.style.display = "flex";
+            }
             menuToggle = true;
         }
     });
@@ -45,10 +78,96 @@ function main() {
             signupToggle = false;
         } else {
             signupPage.style.display = "flex";
+            loginPage.style.display = "none";
             signupToggle = true;
-            blurPage.style.display = "none";
         }
     });
+
+    //회원가입 창 끄기
+    cancelSignupButton.addEventListener("click", () => {
+        signupToggle = false;
+        signupPage.style.display = "none";
+        loginPage.style.display = "flex";
+    });
+
+    //회원가입
+    checkSignupButton.addEventListener("click", () => {
+        axios
+            .post(address, {
+                signupId: `${signupId}`,
+                signupPw: `${signupPw}`,
+            })
+            .then((res) => {
+                if (res.data == "true") {
+                    //회원가입 성공
+                    alert("회원가입 성공");
+                    signupPage.style.display = "none";
+                    loginPage.style.display = "flex";
+                }
+            }).catch((err)=>{
+                console.log("axios signup ERROR");
+            });
+    });
+    //로그인 시도
+    loginButton.addEventListener("click", () => {
+        //임시 로그인 코드
+        localStorage.setItem("login", "true");
+        window.location.reload();
+        //////////////////////////////////////////
+        axios
+            .post(address, {
+                id: `${loginId.value}`,
+                pw: `${loginPw.value}`,
+            })
+            .then((res) => {
+                if (res.data.result == false) {
+                    alert("로그인 실패");
+                } else {
+                    login = true;
+                    localStorage.setItem("login", "true");
+                    //list page의 list채우기
+                    axios.get(address).then((res) => {
+                        const objs = res.data;
+
+                        for (let i = 0; i < objs.length; i++) {
+                            const li = document.createElement("li");
+                            li.setAttribute("class", "list");
+                            li.onclick((e) => {
+                                axios
+                                    .post(address, {
+                                        objName: `${e.target.innerText}`,
+                                    })
+                                    .then((res) => {
+                                        //refresh objviewer
+                                        window.location.reload();
+                                    })
+                                    .catch((err) => {
+                                        console.log("axios list ERROR");
+                                    });
+                            });
+                        }
+                    });
+                    loginPage.style.display = "none";
+                    listPage.style.display = "flex";
+                }
+            })
+            .catch((err) => {
+                console.log("axios login ERROR");
+            });
+    });
+
+    //로그아웃
+    logoutButton.addEventListener("click", () => {
+        localStorage.clear();
+        window.location.reload();
+    });
+
+    //dumy list
+    for (let i = 0; i < listItem.length; i++) {
+        listItem[i].addEventListener("click", async (e) => {
+            console.log(e.target.innerText);
+        });
+    }
 
     //threejs 부분
     {
