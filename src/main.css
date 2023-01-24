@@ -7,16 +7,16 @@ body {
     left: 0;
     top: 0;
 }
-#signup-page {
+#signup-page{
     display: none;
 }
 #login-page {
     display: flex;
 }
-#list-page {
+#list-page{
     display: none;
 }
-.page {
+.page{
     z-index: 10;
     position: absolute;
     left: 0;
@@ -30,7 +30,7 @@ body {
     flex-direction: column;
     color: white;
 }
-.list {
+.list{
     font-size: 20px;
 }
 #menu-image {
@@ -52,7 +52,7 @@ body {
     color: #fff;
 }
 button {
-    width: 16vw;
+    width: 20vw;
     background: black;
     color: #fff;
     border: none;
