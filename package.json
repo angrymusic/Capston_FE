@@ -35,6 +35,8 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "axios": "^1.2.3",
+    "file-loader": "^6.2.0",
     "three": "^0.146.0"
   }
 }

@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+}
+#three-canvas {
+    z-index: 5;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+#signup-page{
+    display: none;
+}
+#login-page {
+    display: flex;
+}
+#list-page{
+    display: none;
+}
+.page{
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.7;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+.list{
+    font-size: 20px;
+}
+#menu-image {
+    z-index: 20;
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    width: 5vh;
+    height: 5vh;
+}
+.input-box {
+    width: 15vw;
+    font-size: 30px;
+}
+.text {
+    text-align: center;
+    width: 15vw;
+    font-size: 30px;
+    color: #fff;
+}
+button {
+    width: 16vw;
+    background: black;
+    color: #fff;
+    border: none;
+    position: relative;
+    height: 60px;
+    font-size: 1.6em;
+    padding: 0 2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+}
+button:hover {
+    background: #fff;
+    color: black;
+}
+button:before,
+button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: black;
+    transition: 400ms ease all;
+}
+button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+button:hover:before,
+button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+}
