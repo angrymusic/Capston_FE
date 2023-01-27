@@ -64,7 +64,7 @@ function main() {
         } else {
             if (login == true) {
                 listPage.style.display = "flex";
-            } else {
+            } else if (signupToggle != true) {
                 loginPage.style.display = "flex";
             }
             menuToggle = true;
