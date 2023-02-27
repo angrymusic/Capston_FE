@@ -43,9 +43,9 @@ function main() {
     //로그인 확인
     window.onload = () => {
         if (login == true) {
-            alert("※ 조작법\nw : 앞으로\na : 왼쪽으로\ns : 뒤로\nd :오른쪽으로\nm : 위로\nn : 아래로");
             menuToggle = false;
             loginPage.style.display = "none";
+            alert("※ 조작법\nw : 앞으로\na : 왼쪽으로\ns : 뒤로\nd :오른쪽으로\nm : 위로\nn : 아래로");
         }
     };
 
@@ -85,6 +85,9 @@ function main() {
 
     //회원가입 창 끄기
     cancelSignupButton.addEventListener("click", () => {
+        for (let i = 0; i < inputboxs.length; i++) {
+            inputboxs[i].value = "";
+        }
         signupToggle = false;
         signupPage.style.display = "none";
         loginPage.style.display = "flex";
