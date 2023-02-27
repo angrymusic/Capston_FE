@@ -30,6 +30,8 @@ function main() {
     const listItem = document.querySelectorAll(".list");
     const objList = document.querySelector("#obj-list");
 
+    let objLocation = "http://223.194.20.51:8080/static/house.obj";
+
     let login;
     if (localStorage.getItem("login") == "true") {
         login = true;
@@ -172,9 +174,10 @@ function main() {
 
     //dumy list
     for (let i = 0; i < listItem.length; i++) {
-        listItem[i].addEventListener("click", async (e) => {
-            console.log(e.target.innerText);
-        });
+        // listItem[i].addEventListener("click", async (e) => {
+        //     console.log(e.target.innerText);
+        //     objLocation = "http://223.194.20.51:8080/static/" + e.target.innerText;
+        // });
     }
 
     //threejs 부분
