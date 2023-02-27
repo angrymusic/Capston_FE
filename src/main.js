@@ -6,7 +6,7 @@ import axios from "axios";
 import house from "../models/house.obj";
 import "../images/menubar.svg";
 
-const address = "http://localhost:8000/";
+const address = "http://localhost:8000";
 function main() {
     const canvas = document.querySelector("#three-canvas");
 
